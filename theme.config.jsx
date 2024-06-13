@@ -1,15 +1,15 @@
 export default {
-  logo: <strong>Nextra Demo</strong>,
+  logo: <strong>EOS Integration Kit</strong>,
   project: {
-    link: "https://github.com/sankthomas/nextra-yt-demo",
+    link: "https://github.com/betidestudio",
   },
   useNextSeoProps() {
     return {
-      titleTemplate: "Nextra Demo - %s",
+      titleTemplate: "EOS Integration Kit - %s",
     };
   },
   footer: {
-    text: "Copyright Thomas Sankara 2024",
+    text: "Copyright Betide Studio 2024",
   },
   chat: {
     link: "https://discord.com",

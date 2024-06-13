@@ -1,11 +1,10 @@
 {
   "index": "Homepage",
   "getting-started-with-nextjs": "Getting Started",
-  "cloud-development": "Cloud Development",
   "contact": {
     "title": "Contact Me",
     "type": "page",
-    "href": "https://youtube.com/tsbsankara",
+    "href": "https://youtube.com/betidestudio",
     "newWindow": true
   },
   "about": {
