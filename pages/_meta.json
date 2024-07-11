@@ -1,6 +1,7 @@
 {
   "index": "Homepage",
   "getting-started-with-nextjs": "Getting Started",
+  "Authentication": "Authentication",
   "contact": {
     "title": "Contact Me",
     "type": "page",
