@@ -1,0 +1,62 @@
+import { Callout } from 'nextra/components'
+
+# Authentication with Steam
+
+<Callout type="warning">
+     Steam authentication with app id `480` is no more supported by the EOS SDK now. Make sure you have your own Steam App Id for the authentication to work.
+</Callout>
+
+
+Starting from version 4.0.0, the Steam login method is pretty smooth and easy to implement. Let's dive into the steps to set up the Steam login method in your Unreal Engine project.
+
+## Setting up Epic Developer Portal
+
+1. Go to the [Epic Games Developer Portal](https://dev.epicgames.com/portal/en-US/) and select your project.
+{" "}
+
+2. Now under **Product Settings**, click on **Identity Providers** and press on **Add Identity Provider**.
+{" "}
+![picture 0](../../../images/0a3944050f32db67adb5c1bc9e06e2275e9163e1354801ee4e197d824100bf32.png) 
+<br/><br/>
+
+3. Select **Steam** from the list and fill the required information:
+
+   - **Description**: This can be any Description you want to give to the Identity Provider.
+   - **Encryption Key**: This should be a empty string.
+   - **SteamNetworkingIdentity value**: This should be set to `epiconlineservices` if you are using Unreal Engine 5.4 or above. For Unreal Engine 5.3 or below, this should be a empty string. If you are using [Steam Integration Kit](https://www.unrealengine.com/marketplace/en-US/product/steam-integration-kit), then this should always be set to `epiconlineservices`.
+   - **OAuth Client ID**: This should be a empty string.
+   - **App ID**: This should be your Steam App ID. If you don't have a Steam App ID, you can get it from the [Steamworks](https://partner.steamgames.com/) website.
+
+![picture 1](../../../images/897e965647788b85f1b74a7e7f5286b4d7b51998be7f46aa342fe3cde1ce9375.png)  
+<br/><br/>
+
+4. To attach the Identity Provider to your sandbox, go to **Sandboxes** and select the sandbox you want to attach the Identity Provider to. Now click on **Identity Providers** and select the profile you just created. Press **Save** and you are done!
+
+This will take a few minutes to get it to populate, give it a few minutes and you are ready to go!
+
+## Project Setup
+
+1. Enable the Steam Plugin that you want to use in your project. You can do this by going to **Edit** -> **Plugins** and search for **Online Subsystem Steam** or **Steam Integration Kit** and enable it.
+
+2. If you are using the **Steam Integration Kit**, just configure the plugin with your Steam App ID and you are good to go. If you are using the **Online Subsystem Steam**, you need to add the following lines to your **DefaultEngine.ini**:
+
+```ini
+[OnlineSubsystem]
+DefaultPlatformService=EIK
+NativePlatformService=Steam
+
+[OnlineSubsystemSteam]
+bEnabled=true
+SteamDevAppId=[Your Steam ID]
+```
+
+## Blueprint Implementation
+
+Onto the final step! Now that you have set up the Steam login method in the Epic Developer Portal and your Unreal Engine project, you can start implementing the Steam login method in your project. Here is an example of how you can do this:
+
+<br/><br/>
+<iframe src="https://blueprintue.com/render/0c7wrbl8/" scrolling="no" allowfullscreen width="100%" height="400px" border="0"></iframe>
+Cannot view the code? [Click here](https://blueprintue.com/render/0c7wrbl8/)
+
+That is it! You have successfully implemented the Steam login method in your Unreal Engine project. Now you can authenticate your users using their Steam account.
+
