@@ -1,0 +1,18 @@
+# Authentication with Epic Games
+
+Before we implement the Epic Games login method, let's first understand what it is and why it needs two nodes as compared to other login methods.
+
+## Basic Information
+There are two parts of this authentication, 
+
+- `Persistent Auth` - This is used to authenticate the user using existing credentials and hence will fail for the first time login.
+- `Account Portal` - This is used to launch the browser with the Epic Games login page and authenticate the user and then get the user's credentials.
+
+This is the reason why we have two nodes for the Epic Games login method where the first node is used to login with Persistent Auth and if it fails, the second node is used to login with the Account Portal. If the login with the Account Portal is success, then the credentials will be saved by EOS SDK and the next time login should be silent.
+
+## Blueprint Implementation
+
+The implementation of the Epic Games login method is quite simple. Here is an example of how you can do this:
+
+<iframe src="https://blueprintue.com/render/_xzgm5rl/" scrolling="no" allowfullscreen width="100%" height="400px"></iframe>
+Cannot view the code? [Click here](https://blueprintue.com/render/_xzgm5rl/)
