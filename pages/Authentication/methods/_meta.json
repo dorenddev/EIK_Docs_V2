@@ -1,5 +1,8 @@
 {
     "epicgames":"Epic Games",
+    "epicgamesstore":"Epic Games Store",
+    "google":"Google",
     "steam": "Steam",
+    "apple": "Apple",
     "oculus": "Oculus"
 }
