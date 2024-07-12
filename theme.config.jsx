@@ -1,3 +1,5 @@
+import icon from "@/images/epicgames.ico"
+
 export default {
   logo: <strong>EOS Integration Kit</strong>,
   project: {
@@ -14,4 +16,9 @@ export default {
   chat: {
     link: "https://discord.com",
   },
+  head: (
+    <>
+      <link rel="icon" type="image/x-icon" href={icon.src} />
+    </>
+  ),
 };
