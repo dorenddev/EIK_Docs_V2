@@ -1,2 +1,26 @@
 # Authentication with Google on Android
 
+Okay Android developers, let's get you set up with Google authentication in your game. I will suggest you to grab a cup of coffee, as this is going to be a long one, but don't worry, I will guide you through the process step by step.
+
+## Setting up Google Developer Console
+
+1. Go to the [Google Developer Console](https://console.cloud.google.com/) and create a new project if you don't have one already.
+
+2. On the OAuth consent screen page, make sure all of the information is complete and accurate. In particular, make sure you have specified the URLs of your app's privacy policy and terms of service.
+
+3. On the Credentials page, create an Android client ID for your app if you don't already have one. You will need to specify your app's package name and SHA-1 signature.
+        
+        a. Go to the Credentials page.
+
+        b. Click **Create credentials** > **OAuth client ID.**
+
+        c. Select the **Android** application type.
+
+4. On the Credentials page, create a web application client ID if you don't already have one. You can leave the Authorized JavaScript Origins and Authorized redirect URIs fields blank. This client ID represents your authentication backend server. (You would use this client ID when calling Google APIs from your server, but you need it even if you don't.)
+        
+        a. Go to the Credentials page.
+
+        b. Click **Create credentials** > **OAuth client ID.**
+
+        c. Select the **Web** application application type.
+
