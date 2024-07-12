@@ -2,6 +2,7 @@
   "index": "Homepage",
   "getting-started-with-nextjs": "Getting Started",
   "Authentication": "Authentication",
+  "multiplayer": "Multiplayer",
   "contact": {
     "title": "Contact Me",
     "type": "page",

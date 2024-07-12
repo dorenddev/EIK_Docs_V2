@@ -1,0 +1,53 @@
+import { Callout } from 'nextra/components'
+
+# Basics of Multiplayer with EOS
+
+The Epic Online Services (EOS) SDK provides two different services that you can use for multiplayer matchmaking:
+
+1. [**Lobbies**](/multiplayer/matchmaking/lobbies.mdx) : Lobbies provide a persistent connection between users for the purpose of sharing game and user state with real-time updates. Typically, users can create or join lobbies to form teams, select pre-game options, and wait for additional players to join in before playing together. Using the Lobby Interface, your users can create, join, leave, and manage lobbies.
+
+2. [**Sessions**](/multiplayer/matchmaking/sessions.mdx) : Epic Online Services (EOS) gives players the ability to host, find, and interact with online gaming sessions through the Sessions Interface. A session can be short, like filling a certain number of player slots before starting a game, then disbanding after the game ends, or it could be longer, like keeping track of a game that cycles through matches on multiple maps or levels. The Sessions Interface also manages game-specific data that supports the back-end service searching and matchmaking functionality.
+
+<Callout type="warning">
+ If your game uses dedicated servers, you must use sessions. Dedicated servers cannot use lobbies.
+ </Callout>
+
+## Difference between Lobbies and Sessions
+
+### Player Connection
+
+#### Lobbies:
+
+- Players have a persistent connection to the lobby with WebSocket, and hence don't need to send an HTTP request each time they query or update information.
+
+#### Sessions:
+
+- Players do not have a persistent connection. Each call your game makes, such as when your game registers a new player to the session, requires a new request.
+- Your game must push session updates to the EOS session service manually and keep each player's remote view of the session up to date.
+
+### Player Registration
+
+#### Lobbies:
+
+- Automatically registers players when they join the lobby and unregisters players when they leave the lobby.
+#### Sessions:
+
+- Your game must register players when they join the session and unregister players when they leave the session.
+- This keeps the player count accurate for the session and prevents other players from trying to join the session if it is already at the maximum player capacity.
+
+### Built-in Features
+#### Lobbies:
+
+- Voice chat integration.
+- Host migration: the owner can transfer ownership when they leave or if their connection drops.
+- The owner can remove (kick) players from the lobby.
+#### Sessions: None.
+
+### Shared Features
+#### Lobbies and sessions share these features:
+
+- Fixed attributes and user attributes that you can populate to best suit your game's needs.
+- Players can search for a lobby or session by the fixed attributes and user attributes that you've marked as public.
+- Players already in the lobby or session can invite other players to join them.
+- Players can join the presence lobby or presence session that a friend is in.
+- Players can join multiple lobbies and sessions at the same time.
