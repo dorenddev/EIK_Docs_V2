@@ -1,12 +1,11 @@
 {
     "basics" : {
-        "title" : "Basics",
-        "description" : "Play with your friends in a multiplayer game",
-        "keywords" : ["multiplayer", "game", "friends"]
+        "title" : "Basics"
     },
     "matchmaking" : {
-        "title" : "Matchmaking",
-        "description" : "Play with random people in a multiplayer game",
-        "keywords" : ["multiplayer", "game", "random"]
+        "title" : "Matchmaking"
+    },
+    "dedicatedservers" : {
+        "title" : "Dedicated Servers"
     }
 }
