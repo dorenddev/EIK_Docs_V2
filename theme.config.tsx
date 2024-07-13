@@ -2,7 +2,9 @@ import React from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DocsThemeConfig } from "nextra-theme-docs";
 import icon from "./images/epicgames.ico";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
+import { useRouter } from 'next/router';
+import { useConfig } from 'nextra-theme-docs';
 
 const config: DocsThemeConfig = {
   logo: (
@@ -13,7 +15,7 @@ const config: DocsThemeConfig = {
       id="svg2"
       width="34"
       height="34"
-      viewBox="0 0 682 791" // Adjust the viewBox as necessary
+      viewBox="0 0 682 791"
       xmlns="http://www.w3.org/2000/svg" >
         <path
           fill="#ffffff"
@@ -231,7 +233,7 @@ const config: DocsThemeConfig = {
         />
       </svg>
       </div>
-      <span style={{ marginLeft: ".4em", fontWeight: 1000, marginTop: ".4en" }}>
+      <span style={{ marginLeft: ".4em", fontWeight: 1000, marginTop: ".4em" }}>
         EOS Integration Kit
       </span>
     </>
@@ -246,11 +248,27 @@ const config: DocsThemeConfig = {
   footer: {
     text: "Made with ❤️ by Betide Studio",
   },
-  head: (
-    <>
-      <link rel="icon" type="image/x-icon" href={icon.src} />
-    </>
-  ),
+  head: () => {
+    const { asPath, defaultLocale, locale } = useRouter();
+    const { frontMatter } = useConfig();
+    const url =
+      'https://betide.studio' +
+      (defaultLocale === locale ? asPath : `/${locale}${asPath}`);
+
+    return (
+      <>
+        <link rel="icon" type="image/x-icon" href={icon.src} />
+        <meta property="og:url" content={url} />
+        <meta property="og:title" content={frontMatter.title || 'Betide Studio'} />
+        <meta
+          property="og:description"
+          content={frontMatter.description || 'Betide Studio'}
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{frontMatter.title || 'Betide Studio'}</title>
+      </>
+    );
+  },
   useNextSeoProps() {
     return { titleTemplate: "%s – Betide Studio" };
   },
