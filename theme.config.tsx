@@ -252,6 +252,7 @@ const config: DocsThemeConfig = {
     </>
   ),
   useNextSeoProps() {
+    
     return { titleTemplate: "%s – Betide Studio" };
   },
 };
