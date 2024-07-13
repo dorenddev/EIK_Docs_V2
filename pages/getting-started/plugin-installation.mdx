@@ -1,0 +1,103 @@
+import { Callout } from 'nextra/components'
+
+# Plugin Installation 
+
+Great decision! You're about to install a plugin that will make your life easier. 
+
+## Marketplace Edition
+
+1. Open **Library** in the **Unreal Engine** section of the **Epic Games Launcher**.
+
+![picture 0](../../images/3dcd464163242a1c0cd4cf515bc2379b81e761e1441488a6743810684e006054.png)  
+
+2. Go to the **Vault** section and install `EOS Integration Kit`.
+
+![picture 1](../../images/93d496de274d9e0ab62a4d18e22c9ac67f661e3a7101767a4f4965c1f666c83c.png)  
+
+3. Open the **Plugins** window in the **Unreal Engine** editor.
+
+![picture 2](../../images/38df9b7c89d2822c8aff410ff9280f5f741b1bab31bfe7cb582ea6dfdf509169.png)  
+
+4. Enable the plugin by checking the box next to `EOS Integration Kit`.
+
+![picture 3](../../images/3a38a080677fe016a5b26c15ac28d03df12c38b482948a9f632d5c779df6bbca.png)  
+
+5. Restart the **Unreal Engine** editor.
+
+Done! You've successfully installed the plugin.
+
+## Source Edition
+
+<Callout type="warning">
+    Because the source version of the plugin is not compiled, you will need to compile it yourself before using it in your project. This is why you need a C++ project to use the source version of the plugin.
+</Callout>
+
+1. Clone the repository from [GitHub](https://github.com/betidestudio/EOSIntegrationKit) either using the `git clone` command or by downloading the repository as a ZIP archive. 
+
+![picture 4](../../images/784080af085e9d605e835fff36b8d6d14c582ac45cbbdb8bd15dab71d97a69eb.png)  
+![picture 5](../../images/815b1d9568a9e9a281526f1ad7b9d98a65dd8e7cdfb751e9f452789e92ff1c7a.png)  
+
+2. Once downloaded, extract the contents of the ZIP archive to the `Plugins` folder of your Unreal Engine project.
+
+![picture 6](../../images/587de8b484a4ca1831954ebb2ad34c94646041dcd15f7ea20ed4782f2cda2001.png)  
+
+3. Download the [EOS SDK](https://dev.epicgames.com/portal/en-US/) from the Epic Games website. Download the SDK for the platform you are developing for.
+
+- **Windows** : C SDK
+- **Mac** : C SDK
+- **Linux** : C SDK
+- **Android** : Android SDK
+- **iOS** : iOS SDK
+
+![picture 7](../../images/faa8b9aa528d589f1005a0a2f59cd95da840b3700b572bcd2e52d6a4766951ea.png)  
+![picture 8](../../images/6cc129c33dfb29b6f96e24e69899b524a54c4bd2610fb08b89fc6b9ab06c464d.png)  
+
+
+4. Now we need to copy the SDK files to the plugin folder. The SDK files are located in the `SDK` folder of the downloaded ZIP archive. The SDK files are different for each platform. Let me guide you through the process.
+
+### C SDK 
+
+- Extract the downloaded ZIP archive and then copy the elements of the `SDK` folder to the `ThirdParty/EIKSDK` folder of the plugin.
+
+![picture 9](../../images/446184de3a2dde8acfa23d482b0485e432efc61839942301e3b6595d3a452692.png)  
+
+### Android SDK
+
+Starting EOS SDK V1.16.2, Epic Games doesn't provide the `libEOSSD.so` files for Android. So, we have to extract them from the SDK ourselves. Let's go through the steps.
+
+- From the unzipped SDK folder, navigate to `SDK\Bin\Android\static-stdc++\aar` and extract the `eossdk-StaticSTDC-release.aar` file using an archive manager like 7-Zip.
+
+![picture 10](../../images/c42849235981093081e796a3dfd75c920da11df2f3aaf89c9263d376de16f9dd.png)  
+
+- Now from the extracted files, navigate to `eossdk-StaticSTDC-release\jni` and copy all the folders and files to the `ThirdParty/EIKSDK/Bin/Android` folder of the plugin. The folder should look like this :
+
+![picture 11](../../images/309e1ae1450f41d6b5ed86449d998b36bfcc7691afdade8f1b79787fb717795a.png)  
+
+- Copy the **includes** from the extracted files to the `ThirdParty/EIKSDK` folder of the plugin. The new folder structure should look like this :
+
+![picture 12](../../images/aca6e853338dd7cf85b970544becc74c80b3494fd236a9c78e6be0e7555b0db8.png)  
+
+### iOS SDK
+
+- Extract the downloaded ZIP archive and then copy the elements of the `SDK` folder to the `ThirdParty/EIKSDK` folder of the plugin, same as the C SDK.
+
+To verify that the SDK files are copied correctly, the folder structure of `ThirdParty/EIKSDK/Bin/IOS` should look like this :
+
+![picture 13](../../images/724a329984d9d1a84595888b4299b89bd3dfe62cdb47e7899e6e9bd7989e6ce7.png)  
+
+
+### Back to the unified steps
+
+5. Now right click on the `.uproject` file of your project and select `Generate Visual Studio project files`.
+
+![picture 14](../../images/7023f1e0254176000c527a99c1c377e29923ba21ada1f3b39f9401e12b44ca9f.png)  
+
+6. Open the generated `.sln` file in Visual Studio and compile the project.
+
+7. Once compiled, open the **Plugins** window in the **Unreal Engine** editor and enable the plugin by checking the box next to `EOS Integration Kit`.
+
+![picture 3](../../images/3a38a080677fe016a5b26c15ac28d03df12c38b482948a9f632d5c779df6bbca.png)  
+
+8. Restart the **Unreal Engine** editor.
+
+Done! You've successfully installed the plugin.

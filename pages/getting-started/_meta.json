@@ -1,0 +1,8 @@
+{
+    "plugin-installation" : {
+        "title" : "Plugin Installation"
+    },
+    "configuration" : {
+        "title" : "Configuration"
+    }
+}
