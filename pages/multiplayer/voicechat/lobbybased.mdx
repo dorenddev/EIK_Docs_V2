@@ -1,0 +1,52 @@
+# Lobby based Voice Chat with EOS
+
+Prior to version 4 of EOS Integration Kit, voice chat with lobby was not well done, like you could not control stuff. But now it is! You can now control the voice chat in the lobby as you want. This page will guide you on how to set up voice chat with lobby in your game.
+
+## Setting up the Voice Chat
+
+To set up voice chat with lobby in your game, the only thing need to be done is to enable the voice chat when creating the lobby session. Here is how you can do it:
+
+![picture 0](../../../images/282a687f9751f367e2412ec06b0517440cfe83224f1763d7f30babeaba067bc8.png)  
+
+Make sure you have the `Use Voice Chat` flag set to `true` when creating the lobby session. That is it! You have successfully set up voice chat with lobby in your game.
+
+## Controlling the Lobby Voice Chat
+
+There are many functions available now that you can use to control the voice chat in the lobby. Here are some of the functions that you can use:
+
+### Mute/Unmute Player
+
+You can now mute or unmute the local player with `Mute Lobby Voice Chat` function:
+
+![picture 1](../../../images/e2201c6e88c5aa7ab25e2009bccd21ab62af28ce8396537e8fd3cb14124a8b51.png)  
+
+### Set Input Method
+
+You can now set the input method for the voice chat with `Set Lobby Input Method` function:
+
+![picture 2](../../../images/7f783afcd57969c8449f6d2e4946d350ac676fd56e9ef7385c8a799c131a26d0.png)  
+
+In the above example, we get a random available input method and set it as the input method for the voice chat.
+
+### Set Output Method
+
+You can now set the output device for the voice chat with `Set Lobby Output Method` function:
+
+![picture 3](../../../images/2c6d709ba69dd1bae4e711fbe90f367c56e56765ba17c23cd0f3454f4187e08a.png)  
+
+### Set Player Volume
+
+You can now set the volume of a player with `Set Lobby Player Volume` function:
+
+![picture 4](../../../images/9a39d563e1f3051027e3083202785046f1d8a627036249512bbef6ef894cd756.png)  
+
+The player name is `UniqueNetId` of the player you want to set the volume for. The volume is a float value between 0 and 1.
+
+### Get Player Volume
+
+You can now get the volume of a player with `Get Lobby Player Volume` function:
+
+![picture 5](../../../images/c2535fe5828b1fdf2f101a3206ba404782e5d69183384491168681660efd0615.png)  
+
+
+That is it! You can now control the voice chat in the lobby as you want. Have fun! :D
