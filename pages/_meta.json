@@ -1,5 +1,9 @@
 {
   "index": "Homepage",
+  "--": {
+    "type": "separator",
+    "title": "Documentation"
+  },
   "getting-started": "Getting Started",
   "Authentication": "Authentication",
   "multiplayer": "Multiplayer",
@@ -12,5 +16,15 @@
   "about": {
     "title": "About the author",
     "type": "page"
-  }
+  },
+  "---": {
+    "type": "separator",
+    "title": "More"
+  },
+  "extendedlogging": {
+    "title": "Extended Logging"
+  },
+  "changelog": {
+    "title": "Changelog"
+    }
 }

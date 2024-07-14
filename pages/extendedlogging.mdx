@@ -1,0 +1,98 @@
+import { Callout } from 'nextra/components'
+
+# Extended Logging 
+
+Okay, it's normal in development to get issues with your code. But what if you want to know what's happening in your code? You can enable extended logging to get more information about what's happening in your code.
+
+## How to enable extended logging
+
+In your `DefaultEngine.ini` file, add the following lines:
+
+```ini
+[Core.Log]
+LogEOS=All
+LogOnline=All
+LogTemp=All
+LogEOSSDK=All
+```
+
+## Enable logging in Shipping builds
+
+<Callout type="warning">
+If you have not tested development build and directly testing shipping build, it's suggested to first test things in development build.
+</Callout>
+
+Many times, you want to enable logging in shipping builds because things work in development but not in shipping. Let's see how you can enable logging in shipping builds depending on the platform.
+
+### PC (Windows, Mac, Linux)
+
+There are two requirements to enable logging in shipping builds on PC:
+
+- Your project should be a C++ project, that is it should have atleast one C++ class.
+- Find the `YourProjectName.Target.cs` file in the `Source` folder of your project, and add the following lines:
+
+#### Launcher Engine
+
+If the project is using the engine installed through the Epic Games Launcher, add the following lines to the `YourProjectName.Target.cs` file:
+
+```csharp
+bUseLoggingInShipping = true;
+bOverrideBuildEnvironment = true;
+```
+
+#### Source Engine
+
+If the project is using the engine compiled from source, add the following lines to the `YourProjectName.Target.cs` file:
+
+```csharp
+bUseLoggingInShipping = true;
+BuildEnvironment = TargetBuildEnvironment.Unique;
+```
+
+### Android
+
+To enable logging in shipping builds on Android, it's a bit long process. 
+
+- You need to use the Source version of the engine, that is the engine is downloaded and compiled from the source code.
+- The project should be a C++ project, that is it should have atleast one C++ class.
+
+Go to `Engine\Source\Runtime\Core\Private\Android\AndroidPlatformMisc.cpp` and find the following lines:
+
+##### Old Code
+```cpp
+void FAndroidMisc::LocalPrint(const TCHAR *Message)
+{
+	// Builds for distribution should not have logging in them:
+	// http://developer.android.com/tools/publishing/preparing.html#publishing-configure
+#if !UE_BUILD_SHIPPING || ENABLE_PGO_PROFILE
+	const int MAX_LOG_LENGTH = 4096;
+```
+
+##### New Code
+
+If you see the `!UE_BUILD_SHIPPING` condition, it means that logging is disabled in shipping builds. You need to remove this condition to enable logging in shipping builds. The new code should look like this:
+
+```cpp
+void FAndroidMisc::LocalPrint(const TCHAR *Message)
+{
+	// Builds for distribution should not have logging in them:
+	// http://developer.android.com/tools/publishing/preparing.html#publishing-configure
+#if ENABLE_PGO_PROFILE
+	const int MAX_LOG_LENGTH = 4096;
+```
+
+Now compile the engine and your project. You should see logs in the shipping build.
+### iOS
+
+To enable logging in shipping builds on iOS, add the following lines to the `YourProjectName.Target.cs` file:
+
+```csharp
+bUseLoggingInShipping = true;
+BuildEnvironment = TargetBuildEnvironment.Unique;
+```
+
+**Note**: You need to compile the engine and your project to see logs in the shipping build.
+
+## Conclusion
+
+Now you know how to enable logging in shipping builds. This will help you debug issues in your game when it's running on the user's device.
