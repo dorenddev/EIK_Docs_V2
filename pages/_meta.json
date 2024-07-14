@@ -17,6 +17,9 @@
     "title": "About the author",
     "type": "page"
   },
+  "otherfunctions": {
+    "title": "Other Functions"
+    },
   "---": {
     "type": "separator",
     "title": "More"
