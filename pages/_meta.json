@@ -17,8 +17,8 @@
     "title": "About the author",
     "type": "page"
   },
-  "otherfunctions": {
-    "title": "Other Functions"
+  "playerinformation": {
+    "title": "Player Information"
     },
   "---": {
     "type": "separator",
