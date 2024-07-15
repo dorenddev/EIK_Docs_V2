@@ -237,7 +237,7 @@ const config: DocsThemeConfig = {
     </>
   ),
   project: {
-    link: "https://github.com/betidestudio/SteamIntegrationKit",
+    link: "https://github.com/betidestudio/EOSIntegrationKit",
   },
   chat: {
     link: "https://discord.gg/betidestudio",

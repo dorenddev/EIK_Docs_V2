@@ -8,14 +8,16 @@
   "Authentication": "Authentication",
   "multiplayer": "Multiplayer",
   "contact": {
-    "title": "Contact Me",
+    "title": "Support",
     "type": "page",
-    "href": "https://youtube.com/betidestudio",
+    "href": "https://discord.gg/betidestudio",
     "newWindow": true
   },
   "about": {
-    "title": "About the author",
-    "type": "page"
+    "title": "Marketplace ❤️",
+    "type": "page",
+    "href": "https://www.unrealengine.com/marketplace/en-US/product/eos-integration-kit",
+    "newWindow": true
   },
   "playerinformation": {
     "title": "Player Information"
