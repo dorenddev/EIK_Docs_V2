@@ -239,6 +239,14 @@ const config: DocsThemeConfig = {
   project: {
     link: "https://github.com/betidestudio/EOSIntegrationKit",
   },
+  banner: {
+    key: '4.0-release',
+    text: (
+      <a href="https://eik.betide.studio" target="_blank">
+        🎉 EOS Integration Kit Version 4 releases on 18th July
+      </a>
+    ),
+  },
   chat: {
     link: "https://discord.gg/betidestudio",
   },
