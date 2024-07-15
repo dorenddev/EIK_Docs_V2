@@ -8,6 +8,9 @@
     "dedicatedservers" : {
         "title" : "Dedicated Servers"
     },
+    "hostmigration" : {
+        "title" : "Host Migration"
+    },
     "voicechat" : {
         "title" : "Voice Chat"
     }
