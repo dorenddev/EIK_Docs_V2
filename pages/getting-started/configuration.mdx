@@ -1,2 +1,121 @@
-# Plugin Configuration
+import { Callout } from 'nextra/components'
 
+# Configuration 
+
+Configuring the EOS Integration Kit plugin is a simple process. Let's go through the steps to configure the plugin.
+
+## Plugin Basics
+
+After the plugin is installed and set to active, you can configure it by going to the plugin settings page. The settings page can be found in **Project Settings** -> **Game** -> **EOS Integration Kit**.
+
+![picture 0](../../images/fe1bc4c7d5bc9a4a9976d3fe14a64caa6bf3d441c7406cb65f0c5660fc202dea.png)  
+
+## DefaultEngine.ini Configuration
+
+### Automatic Configuration
+
+If you turn on the **Automatically setup EIK** option under **EOS Integration Kit Settings**, the plugin will automatically add the required configuration to the `DefaultEngine.ini` file. This is the recommended way to configure the plugin.
+
+![picture 1](../../images/e6108ee6112ca6e8d63ffa809b3dd1fd31662a64715dddce727dc13f790036a3.png)  
+
+### Manual Configuration
+
+If you prefer to manually configure the plugin, you can add the following configuration to the `DefaultEngine.ini` file.
+
+```ini
+[OnlineSubsystem]
+DefaultPlatformService=EIK
+
+[OnlineSubsystemEIK]
+bEnabled=true
+
+[/Script/Engine.GameEngine]
+!NetDriverDefinitions=ClearArray
++NetDriverDefinitions=(DefName="GameNetDriver",DriverClassName="OnlineSubsystemEIK.NetDriverEIK",DriverClassNameFallback="OnlineSubsystemUtils.IpNetDriver")
+```
+
+## Artifact Configuration
+
+So, what are artifacts? Artifacts are group of settings that are used to configure the EOS SDK. The EOS SDK requires a set of configuration settings to be passed to it in order to function correctly. These settings are grouped into artifacts.
+
+To add a new artifact, click on the **+** button under **Artifacts**.
+
+![picture 2](../../images/6cb1a71330773711780023aeb5e2405560a644a939ff6f8267715d37aa57e9c9.png)  
+
+
+You should now see a new artifact added to the list. Click on the artifact to expand it.
+
+![picture 3](../../images/7a1029e60c58b161bcfb8370a52e5b69cd9fbdc1602fa43a67a43d92a2777106.png)  
+
+
+### Artifact Settings
+
+#### Artifact Name
+
+<Callout type="warning">
+        Default Artifact name should not be empty. It should be set to one of the artifacts in the list.
+</Callout>
+
+The name of the artifact. This is used to identify the artifact in the plugin settings. To set this artifact as the default artifact, enter the same name in the **Default Artifact** field.
+
+![picture 4](../../images/c73c0c70b56680706bc1dc9dd3d92fcae8d7596cb80e7bd22606bebbf13126e4.png)  
+
+#### Client Id and Client Secret
+
+The Client ID and Client Secret are used to authenticate the client with the EOS SDK. These values are provided by Epic Games when you register your application with the Epic Games Developer Portal.
+
+Let's go through the steps to get the Client ID and Client Secret.
+
+1. Go to the [Epic Games Developer Portal](https://dev.epicgames.com/portal/en-US/) and sign in with your Epic Games account.
+
+2. Select the **Applications** tab from the left-hand menu or if you don't have any applications, click on the **Create Application** button.
+
+3. After the application is created, under your application, you will find the **Clients** under the **Product Settings** tab.
+
+![picture 5](../../images/0fb4ee89dc8129acb90ef3ac9ce5da63db59e7e967e2c16223cfadbef87dfcc3.png)  
+
+4. Create a new client policy and select **Policy Type** as **Peer2Peer**.
+
+    <Callout type="warning">
+        There are a lot of settings/features that are not available for GameClient. If it doesn't suit your needs, you will have to create a custom policy and select the required features.
+    </Callout>
+
+ ![picture 6](../../images/95d7c503178428905c7ea8e20be1a9eda7b7d7a345dde8b08306f6a72442963e.png)  
+
+5. After the client policy is created, create a new client and select the client policy that you created in the previous step.
+
+![picture 7](../../images/a6138bdb017d1e9dc98064fcc974f16ae251b767b6341ffc62ae044fba0227e3.png)  
+
+6. After the client is created, you will find the **Client ID** and **Client Secret** on the **SDK Download & Credentials** tab.
+
+![picture 8](../../images/fa6ad5c3514f8cbd3908d33dabdbaa65e54017cbc6d5ebeecdddf2307ec38f00.png)  
+
+7. Done! Copy the **Client ID** and **Client Secret** and paste them in the **Client Id** and **Client Secret** fields respectively of the artifact.
+
+![picture 9](../../images/13c013654e9ca7903591f6f3eeeede4aa3fb47e2468415a7d2148913a7a3004a.png)  
+
+#### Product Id
+
+The Product ID is used to identify the product that the client is associated with. 
+
+Copy the **Product ID** from the **SDK Download & Credentials** tab of the client that you created in the previous step and paste it in the **Product Id** field of the artifact.
+
+#### Sandbox Id
+
+The Sandbox ID is used to identify the sandbox that the client is associated with, like Dev, Staging, or Production.
+
+Copy the **Sandbox ID** from the **SDK Download & Credentials** tab of the client that you created in the previous step and paste it in the **Sandbox Id** field of the artifact.
+
+#### Deployment Id
+
+The Deployment ID is used to identify the deployment that the client is associated with.
+
+Copy the **Deployment ID** from the **SDK Download & Credentials** tab of the client that you created in the previous step and paste it in the **Deployment Id** field of the artifact.
+
+Done! You have successfully configured the EOS Integration Kit plugin.
+
+Important: These configuration settings require the engine to be restarted in order to take effect.
+
+## Troubleshooting
+
+If you encounter any issues while configuring the plugin or have any questions, feel free to reach out to us on our [Discord server](https://discord.gg/betidestudio).
