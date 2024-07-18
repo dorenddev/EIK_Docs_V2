@@ -2,7 +2,8 @@
     "epicgames":"Epic Games",
     "epicgamesstore":"Epic Games Store",
     "steam": "Steam",
+    "deviceid": "Device ID",
     "oculus": "Oculus",
-    "apple": "Apple",
-    "google":"Google"
+    "google":"Google",
+    "apple": "Apple"
 }
