@@ -1,0 +1,34 @@
+# Anti-Cheat with EOS Integration Kit
+
+EOS Integration Kit has a built-in anti-cheat system which is **Easy Anti-Cheat (EAC)**. EAC was a third-party anti-cheat system that was acquired by Epic Games and integrated into the EOS SDK. This integration allows developers to easily add anti-cheat functionality to their games without having to worry about implementing it themselves.
+
+## Setting up Easy Anti-Cheat
+
+To set up Easy Anti-Cheat with EOS Integration Kit, let's assume that we have two leves in our game: `MainMenu` and `Gameplay`. All the below steps are to be done in the `Gameplay` and the respective blueprints have to be used. So for example, PlayerController of the game level will be the Controller I am referring to in the following steps:
+
+### 1. Setting up Game Mode
+
+First of all, OnPostLogin event of the GameMode has to be overridden. In this event, we have to call the Register Client For Anti-Cheat blueprint node from Anti-Cheat Server and pass the PlayerController as the parameter along with Client Product ID. This will register the player with the anti-cheat system.
+
+<iframe src="https://blueprintue.com/render/111z3ihv/" scrolling="no" allowfullscreen width="100%" height="400px"></iframe>
+Cannot view the code? [Click here](https://blueprintue.com/render/111z3ihv/)
+
+### 2. Setting up Player Controller
+
+There are basically three things that have to be done in the PlayerController blueprint. Let's see them one by one.
+
+Setup Event BeginPlay to call RegisterAntiCheatClient from Anti-Cheat Client. This will initialize the anti-cheat system for the player. Make sure this is done locally only.
+
+Second sub step would be to register calls from EOS SDK which would inform you to forward some messages to the anti-cheat server. Bind to OnSendMessageToServer event and call a new custom event like in the below graph which will forward to the game server.
+
+Create a custom event to receive messages from the server and forward them to the anti-cheat client.
+
+Make it like the functions below->
+
+<iframe src="https://blueprintue.com/render/tdmbuwgk/" scrolling="no" allowfullscreen width="100%" height="400px"></iframe>
+Cannot view the code? [Click here](https://blueprintue.com/render/tdmbuwgk/)
+
+### 3. Generate Anti-Cheat Files
+
+Now the code setup is done, we have to generate the anti-cheat files. For this, we have to run the GenerateAntiCheatFiles command from the console. This will generate the required files in the AntiCheat folder.
+

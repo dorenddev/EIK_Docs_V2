@@ -13,5 +13,8 @@
     },
     "voicechat" : {
         "title" : "Voice Chat"
+    },
+    "anti-cheat" : {
+        "title" : "Anti-Cheat"
     }
 }
