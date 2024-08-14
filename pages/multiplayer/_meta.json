@@ -8,6 +8,9 @@
     "dedicatedservers" : {
         "title" : "Dedicated Servers"
     },
+    "friends": {
+        "title": "Friends"
+    },
     "hostmigration" : {
         "title" : "Host Migration"
     },

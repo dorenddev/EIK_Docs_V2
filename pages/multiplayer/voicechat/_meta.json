@@ -1,5 +1,6 @@
 {
     "basics": "Basics",
     "lobbybased": "Lobby Based",
-    "tokenbased": "Token Based"
+    "tokenbased": "Token Based",
+    "positionalvoice": "Positional Voice"
 }
