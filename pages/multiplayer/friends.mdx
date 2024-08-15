@@ -1,2 +1,41 @@
-# Friends with EIK
+# Friends with EOS Integration Kit
+
+Not everyone has a ton of friends, but with EIK, you can make sure the ones you do have never miss a game! (Thanks to AI for the joke, now you decide if they are funny or not)
+
+## Getting Friend List
+
+To get the list of friends, you need to call the following function:
+
+![picture 0](../../images/5a5201a0542d9ea70b98440aaeedc423d78d38186cd9f802b3fc32ca2cb6fce2.png)  
+
+This will load, and return the list of friends along with their presence status. Also, Epic doesn't have avatar support at the moment, unlike Steam.
+
+## Invite Friends to Lobby/Sessions
+
+To invite friends to a lobby or session, you need to call the following function:
+
+![picture 1](../../images/e138afd18561e5ccaa2e27b7680cfca258c7b7e9dd3c646f626cb049fffe6f93.png)  
+
+SessionName is the name of the session you set when you created the lobby or session. 
+
+## Listen and Accept/Reject Lobby Invites
+
+### Listen to Lobby Invite Events
+
+To listen to Lobby invite events, you need to bind the following delegate which you can do when the game starts:
+
+![picture 2](../../images/11c9bff4f359feeaf62d82c7a66dd82e25f986656c2d7966ae5710e34973747b.png)  
+
+### Accept Lobby Invite
+
+You can accept the Lobby invite by calling the following function:
+
+![picture 3](../../images/6923ea378ace075d95ab7507300dcdf3d92e5fa78670eadfa3f1ff31660935c5.png)  
+
+### Reject Lobby Invite
+
+You can reject the Lobby invite by calling the following function:
+
+![picture 4](../../images/e4a4746b8ea5d9440f82b6a678b1df52d2963f00c2dc38bc0a0e42d99eb19d6a.png)  
+
 
