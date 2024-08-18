@@ -11,6 +11,10 @@
     "friends": {
         "title": "Friends"
     },
+    "lan":
+    {
+        "title": "LAN"
+    },
     "hostmigration" : {
         "title" : "Host Migration"
     },
