@@ -1,0 +1,69 @@
+import { Callout } from "nextra-theme-docs";
+
+# Integrating Kronos Matchmaking with EIK
+
+
+![picture 0](../../images/7e35a6ca2a099885487c976383b250c773b5bbe31bd5f01c6e300a70b1b0a1f0.png)  
+
+
+[Kronos Matchmaking](https://www.unrealengine.com/marketplace/en-US/product/kronos-matchmaking) is one of the best and complete client-sided matchmaking solutions available at the moment on the Unreal Engine Marketplace. It provides a lot of features and flexibility to create a matchmaking system that fits your game's needs.
+
+We know this took a while, but we finally have a guide on how to integrate Kronos Matchmaking with EIK. This guide will show you how to set up the matchmaking system and how to integrate it with EIK.
+
+<Callout type="warning">
+    Kronos Matchmaking requires Beacons to be working which are not supported by most EOS plugins but EIK now supports it for version 4.2.0 and above.
+</Callout>
+
+## Temporary Code Changes
+
+Before we start, we need to make some changes to the Kronos Matchmaking plugin code. These changes are temporary and will be removed in the future when the plugin is updated to support EIK out of the box. (Special thanks to Horizon Games)
+
+Under `Plugins/Kronos/Source/Kronos/Private/KronosUserManager.cpp`, add the following code to the `UKronosUserManager::AuthenticateUser()` function:
+
+```cpp
+IOnlineSubsystem* OnlineSubsystem = IOnlineSubsystem::Get();
+IOnlineIdentityPtr IdentityInterface = OnlineSubsystem ? OnlineSubsystem->GetIdentityInterface() : nullptr;
+
+if(IdentityInterface->GetLoginStatus(0) == ELoginStatus::LoggedIn)
+{
+	BeginAuthTaskLatent(FTimerDelegate::CreateLambda([this]()
+    {
+	    LastAuthTaskStartTime = GetWorld()->GetTimeSeconds();
+	    ChangeAuthState(EKronosUserAuthState::ReadUserFiles);
+
+	    const FUniqueNetId& UserId = *GetUserId();
+	    ReadUserFiles(UserId);
+    }));
+	OnUserAuthComplete(EKronosUserAuthCompleteResult::Success, !bIsAuthenticated, FText::GetEmpty());
+    return true;
+}
+
+```
+
+This code will make sure that the user is still marked as authenticated even if the user is already logged in. This is necessary because EIK will log in the user before Kronos Matchmaking does, and this will cause the user to be marked as not authenticated by Kronos Matchmaking.
+
+## Setting Up Kronos Matchmaking
+
+For the following code, I am using Autologin with EIK and the method is `DevTool`. You can use any method you want, but make sure to change the code accordingly.
+
+Make a new empty map that will be used for Authentication. I have named this map `LoginMap`. Now on event begin play of this map, add the following code:
+
+![picture 1](../../images/34ccd52aedcbb5e731414b62c14b3d67d2d527bbe5445d883c2ede0d89aea25a.png)  
+
+In case you are not using the autologin feature, you can use the normal login methods and do a level switch on successful login.
+
+## Presence Issues
+
+By default, Kronos Matchmaking creates all the sessions with the `bUsePresence` flag set to `true`. But in EOS, the presence can only be used for one session at a time. So, if you are using EIK, you need to disable the presence in the widgets where you are creating the sessions. 
+
+Like for us, it was in the `WBP_KronosExampleMenu` widget. So, we disabled the presence in the `CreateSession` function.
+
+![picture 2](../../images/f2c923ecb2a89ccf6b1bf8806e6514069b646daf3d870171d7afa57740800e8b.png)  
+
+
+## Conclusion
+
+![picture 3](../../images/bc6cb470735ca7fb919f461b46fb94d920b9e43a0200e7d0b55adb5b4c209e9c.png)  
+
+
+This is how you can integrate Kronos Matchmaking with EIK. If you have any questions or need help with the integration, feel free to ask in the [EIK Discord Server](https://discord.gg/betidestudio).
