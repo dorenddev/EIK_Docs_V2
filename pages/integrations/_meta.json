@@ -1,3 +1,5 @@
 {
-    "steamintegrationkit": "Steam Integration Kit"
+    "steamintegrationkit": "Steam Integration Kit",
+    "playfabintegrationkit": "PlayFab Integration Kit",
+    "lyra" : "Lyra"
 }
