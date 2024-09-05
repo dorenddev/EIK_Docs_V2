@@ -14,34 +14,6 @@ We know this took a while, but we finally have a guide on how to integrate Krono
     Kronos Matchmaking requires Beacons to be working which are not supported by most EOS plugins but EIK now supports it for version 4.2.0 and above.
 </Callout>
 
-## Temporary Code Changes
-
-Before we start, we need to make some changes to the Kronos Matchmaking plugin code. These changes are temporary and will be removed in the future when the plugin is updated to support EIK out of the box. (Special thanks to Horizon Games)
-
-Under `Plugins/Kronos/Source/Kronos/Private/KronosUserManager.cpp`, add the following code to the `UKronosUserManager::AuthenticateUser()` function:
-
-```cpp
-IOnlineSubsystem* OnlineSubsystem = IOnlineSubsystem::Get();
-IOnlineIdentityPtr IdentityInterface = OnlineSubsystem ? OnlineSubsystem->GetIdentityInterface() : nullptr;
-
-if(IdentityInterface->GetLoginStatus(0) == ELoginStatus::LoggedIn)
-{
-	BeginAuthTaskLatent(FTimerDelegate::CreateLambda([this]()
-    {
-	    LastAuthTaskStartTime = GetWorld()->GetTimeSeconds();
-	    ChangeAuthState(EKronosUserAuthState::ReadUserFiles);
-
-	    const FUniqueNetId& UserId = *GetUserId();
-	    ReadUserFiles(UserId);
-    }));
-	OnUserAuthComplete(EKronosUserAuthCompleteResult::Success, !bIsAuthenticated, FText::GetEmpty());
-    return true;
-}
-
-```
-
-This code will make sure that the user is still marked as authenticated even if the user is already logged in. This is necessary because EIK will log in the user before Kronos Matchmaking does, and this will cause the user to be marked as not authenticated by Kronos Matchmaking.
-
 ## Setting Up Kronos Matchmaking
 
 For the following code, I am using Autologin with EIK and the method is `DevTool`. You can use any method you want, but make sure to change the code accordingly.
