@@ -11,18 +11,29 @@ import { Callout } from "nextra-theme-docs";
 We know this took a while, but we finally have a guide on how to integrate Kronos Matchmaking with EIK. This guide will show you how to set up the matchmaking system and how to integrate it with EIK.
 
 <Callout type="warning">
-    Kronos Matchmaking requires Beacons to be working which are not supported by most EOS plugins but EIK now supports it for version 4.2.0 and above.
+    Kronos Matchmaking requires Beacons to be working which are not supported by most EOS plugins including Epic's Plugin but EIK now supports it for version 4.2.0 and above.
 </Callout>
 
 ## Setting Up Kronos Matchmaking
 
 For the following code, I am using Autologin with EIK and the method is `DevTool`. You can use any method you want, but make sure to change the code accordingly.
 
-Make a new empty map that will be used for Authentication. I have named this map `LoginMap`. Now on event begin play of this map, add the following code:
+For the setup, you need to follow the steps below:
 
-![picture 1](../../images/34ccd52aedcbb5e731414b62c14b3d67d2d527bbe5445d883c2ede0d89aea25a.png)  
+Make a new empty map that will be used for Authentication. I have named this map `LoginMap`.
 
-In case you are not using the autologin feature, you can use the normal login methods and do a level switch on successful login.
+Now, in the `KronosOnlineSession` blueprint, add the following code:
+
+![picture 4](../../images/3f80c133d5d6ff38f75f97442f525357c35a5fee09bb50d48f28381431482416.png)  
+(Thanks to Horizon Games for the above code)
+
+After authentication is complete, the OnEnterGame event is called by Kronos which opens the actual main menu. That's pretty much it. 
+
+In case you are using the autologin feature of EIK, you can just check if the player is logged in and then call the `AuthenticateUser` event.
+
+<Callout type="warning">
+ Disable Automatic Authentication in the Kronos Matchmaking settings as EIK will handle the authentication.
+</Callout>
 
 ## Presence Issues
 
