@@ -2,28 +2,38 @@ import { Callout } from 'nextra/components'
 
 # Positional Voice Chat with EOS Integration Kit
 
-- Requires Version 4.1.0 or later of EOS Integration Kit
+- Requires Version 4.4.0 or higher of EOS Integration Kit - Special thanks to [Amir-BK](https://github.com/Amir-BK) for the support in implementing this feature.
+- The feature is now fully implemented which means you can add effects to the voice chat based on the player's location.
 
-One of the major features of the EOS Integration Kit is the ability to use Positional Voice Chat. This feature allows players to communicate with each other based on their in-game location.
-
-<Callout type="warning">
-    Positional Voice Chat only works with [Token Based Voice Chat](/multiplayer/voicechat/tokenbased).
-</Callout>
-
-## How it Works
-
-When we recieve the voice chat data from EOS SDK, we can use the player's location to determine the volume of their voice. This means that players who are closer to each other will hear each other more clearly, while players who are further away will hear each other more faintly.
+One of the **major features** of the EOS Integration Kit is the ability to use Positional Voice Chat. This feature allows players to communicate with each other based on their in-game location.
 
 ## How to Use
 
-To use Positional Voice Chat, you need to enable it when you join a voice chat channel. If you have followed the steps in the [Token Tutorial](/multiplayer/voicechat/tokenbased) guide and have successfully joined a voice chat channel, you can enable Positional Voice Chat by calling the following function after the join is success:
+### Step 1: Add the Component
 
-![picture 0](../../../images/bdb363907d898002f5decee4571c7889073b5eee8683220a5f25fa318fe46e61.png)  
+On the *PlayerPawn* class, you need to add the **EIKVoiceChatSynthComponent** component:
 
-Now the Maximum Distance is the distance in Unreal Units that the player's voice can be heard. If the player is further away than this distance, their voice will not be heard.
+![picture 1](../../../images/ef8b9ed7e85c841eac0fc2e3d3d9d984ff042a0b8d795bde6c8c314d4f24b9dc.png)  
 
-**Note**: If you want to use Debug Mode, you can enable it by setting the `bUseDebugPointer` parameter to `true` and set the location of a cube or any item which you want to use as a pointer. Although you will not need to do this now as you can just use two players to test the feature on the same machine.
+On the right side, you should see all the settings for the component. You can adjust the settings as per your requirements.
+
+![picture 2](../../../images/2dc77f7560a2b5bf7062d5c092d80d6a37f905091ffa3e460630d01a7768ad79.png)  
+
+### Step 2: Create Attenuation Settings
+
+You need to create an **Attenuation Settings** asset. This asset will be used to control the voice chat's volume based on the player's location. 
+
+![picture 3](../../../images/0fd4a34f66f728885b3edd05a3b4010fca45eb5d23ea84cea165f68f39a03caf.png)  
+
+### Step 3: Set the Attenuation Settings
+
+Open the Attenuation Settings asset and set the values as per your requirements. For most cases, the default values should work fine.
+
+![picture 4](../../../images/2de295744109fb83714598dcb32db99f111214d64d4754cfd8099a3b17ea7756.png)  
+
 
 ## Conclusion
+
+Boom, you are done! You have successfully implemented the Positional Voice Chat feature in your game. If you want to expand the settings, any Attenuation Settings asset can be used along with hundreds of other settings available in the component.
 
 If you wanted something more expandable, do let us know as we are always looking for ways to improve the Positional Voice Chat feature.
