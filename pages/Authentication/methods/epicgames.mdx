@@ -16,3 +16,95 @@ The implementation of the Epic Games login method is quite simple. Here is an ex
 
 <iframe src="https://blueprintue.com/render/_xzgm5rl/" scrolling="no" allowfullscreen width="100%" height="400px"></iframe>
 Cannot view the code? [Click here](https://blueprintue.com/render/_xzgm5rl/)
+
+## C++ Implementation
+
+Basically, if the user has already logged in once before using the Account Portal, then the user can login using the Persistent Auth method. If the user has not logged in before, then the user has to login using the Account Portal. Which means we have to call the Persistent Auth method first and if it fails, then we have to call the Account Portal method.
+
+### Build.cs File
+
+Add the following lines to your `Build.cs` file:
+
+```c#
+PrivateDependencyModuleNames.AddRange(new string[] { "OnlineSubsystem", "OnlineSubsystemUtils" });
+```
+This will add the required modules to your project and as EIK is already integrated, you don't need to add any other modules for this method.
+
+### Header File
+
+```cpp
+#include "OnlineSubsystem.h"
+#include "OnlineSubsystemUtils.h"
+#include "Interfaces/OnlineIdentityInterface.h"
+
+// Other stuff
+
+public:
+	// This function is used to login using already saved credentials, if the user has already logged in once before using the Account Portal.
+	void LoginWithPersistentAuth();
+	void LoginWithPersistentAuthCallback(int32 LocalUserNum, bool bWasSuccess, const FUniqueNetId& UserId, const FString& Error);
+
+	// This function is used to login using the Account Portal
+	void LoginWithAccountPortal();
+	void LoginWithAccountPortalCallback(int32 LocalUserNum, bool bWasSuccess, const FUniqueNetId& UserId, const FString& Error);
+```
+
+### Source File
+
+```cpp
+void UMyGameInstanceSubsystem::LoginWithPersistentAuth()
+{
+	if(const IOnlineSubsystem *SubsystemRef = Online::GetSubsystem(GetWorld()))
+	{
+		if(const IOnlineIdentityPtr IdentityPointerRef = SubsystemRef->GetIdentityInterface())
+		{
+			FOnlineAccountCredentials AccountDetails;
+			AccountDetails.Type = "eas_+_EIK_LCT_PersistentAuth_+_EIK_ECT_EPIC";
+			IdentityPointerRef->OnLoginCompleteDelegates->AddUObject(this,&UMyGameInstanceSubsystem::LoginWithPersistentAuthCallback);
+			IdentityPointerRef->Login(0,AccountDetails);
+		}
+	}
+}
+
+void UMyGameInstanceSubsystem::LoginWithPersistentAuthCallback(int32 LocalUserNum, bool bWasSuccess,
+	const FUniqueNetId& UserId, const FString& Error)
+{
+	if(bWasSuccess)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("LoginWithPersistentAuthCallback: Login was successful. UserID: %s"), *UserId.ToString());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("LoginWithPersistentAuthCallback: Login was not successful. Error: %s"), *Error);
+		// Basically, the user has to login again with the Account Portal
+		LoginWithAccountPortal();
+	}
+}
+
+void UMyGameInstanceSubsystem::LoginWithAccountPortal()
+{
+	if(const IOnlineSubsystem *SubsystemRef = Online::GetSubsystem(GetWorld()))
+	{
+		if(const IOnlineIdentityPtr IdentityPointerRef = SubsystemRef->GetIdentityInterface())
+		{
+			FOnlineAccountCredentials AccountDetails;
+			AccountDetails.Type = "eas_+_EIK_LCT_AccountPortal_+_EIK_ECT_EPIC";
+			IdentityPointerRef->OnLoginCompleteDelegates->AddUObject(this,&UMyGameInstanceSubsystem::LoginWithAccountPortalCallback);
+			IdentityPointerRef->Login(0,AccountDetails);
+		}
+	}
+}
+
+void UMyGameInstanceSubsystem::LoginWithAccountPortalCallback(int32 LocalUserNum, bool bWasSuccess,
+	const FUniqueNetId& UserId, const FString& Error)
+{
+	if(bWasSuccess)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("LoginWithAccountPortalCallback: Login was successful. UserID: %s"), *UserId.ToString());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("LoginWithAccountPortalCallback: Login was not successful. Error: %s"), *Error);
+	}
+}
+```
