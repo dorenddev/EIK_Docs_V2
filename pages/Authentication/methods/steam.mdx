@@ -72,7 +72,7 @@ Add the following lines to your `Build.cs` file:
 PrivateDependencyModuleNames.AddRange(new string[] { "OnlineSubsystem", "OnlineSubsystemUtils", "OnlineSubsystemEIK" });
 ```
 
-### Header File
+#### Header File
 
 ```cpp
 #include "OnlineSubsystem.h"
@@ -89,7 +89,7 @@ public:
 	void LoginWithSteamCallback(int32 LocalUserNum, bool bWasSuccess, const FUniqueNetId& UserId, const FString& Error);
 ```
 
-### Source File
+#### Source File
 
 ```cpp
 void UMyGameInstanceSubsystem::LoginWithSteam()
