@@ -50,7 +50,9 @@ bEnabled=true
 SteamDevAppId=[Your Steam ID]
 ```
 
-## Blueprint Implementation
+## Code Implementation
+
+### Blueprint Implementation
 
 Onto the final step! Now that you have set up the Steam login method in the Epic Developer Portal and your Unreal Engine project, you can start implementing the Steam login method in your project. Here is an example of how you can do this:
 
@@ -60,3 +62,85 @@ Cannot view the code? [Click here](https://blueprintue.com/render/0c7wrbl8/)
 
 That is it! You have successfully implemented the Steam login method in your Unreal Engine project. Now you can authenticate your users using their Steam account.
 
+### C++ Implementation
+
+#### Build.cs File
+
+Add the following lines to your `Build.cs` file:
+
+```c#
+PrivateDependencyModuleNames.AddRange(new string[] { "OnlineSubsystem", "OnlineSubsystemUtils", "OnlineSubsystemEIK" });
+```
+
+### Header File
+
+```cpp
+#include "OnlineSubsystem.h"
+#include "OnlineSubsystemUtils.h"
+#include "Interfaces/OnlineIdentityInterface.h"
+
+/**
+ * 
+ */
+
+public:
+	// This function is used to login using the Steam
+	void LoginWithSteam();
+	void LoginWithSteamCallback(int32 LocalUserNum, bool bWasSuccess, const FUniqueNetId& UserId, const FString& Error);
+```
+
+### Source File
+
+```cpp
+void UMyGameInstanceSubsystem::LoginWithSteam()
+{
+	if(IOnlineSubsystem* SteamOnlineSub = Online::GetSubsystem(GetWorld(), STEAM_SUBSYSTEM))
+	{
+		if(IOnlineIdentityPtr SteamIdentityInterface = SteamOnlineSub->GetIdentityInterface())
+		{
+			IOnlineIdentity::FOnGetLinkedAccountAuthTokenCompleteDelegate Delegate = IOnlineIdentity::FOnGetLinkedAccountAuthTokenCompleteDelegate::CreateLambda([this](int32 LocalUserNum, bool bWasSuccess, const FExternalAuthToken& AuthToken)
+			{
+				if(bWasSuccess)
+				{
+					if(IOnlineSubsystem* EIKOnlineSub = Online::GetSubsystem(GetWorld(), "EIK"))
+					{
+						if(IOnlineIdentityPtr EIKIdentityInterface = EIKOnlineSub->GetIdentityInterface())
+						{
+							FOnlineAccountCredentials AccountDetails;
+							// If you want to use EAS, you can use the following type
+							AccountDetails.Type = "eas_+_EIK_LCT_ExternalAuth_+_EIK_ECT_STEAM_SESSION_TICKET";
+							// If you want to do the login without EAS, you can use the following type
+							// AccountDetails.Type = "noeas_+_EIK_ECT_STEAM_SESSION_TICKET";
+							AccountDetails.Token = AuthToken.TokenString;
+							EIKIdentityInterface->OnLoginCompleteDelegates->AddUObject(this, &UMyGameInstanceSubsystem::LoginWithSteamCallback);
+							EIKIdentityInterface->Login(0, AccountDetails);
+						}
+					}
+					else
+					{
+						UE_LOG(LogTemp, Error, TEXT("LoginWithSteam: EIK OnlineSubsystem not found."));
+					}
+				}
+				else
+				{
+					UE_LOG(LogTemp, Error, TEXT("LoginWithSteam: Login was not successful."));
+				}
+			});
+			SteamIdentityInterface->GetLinkedAccountAuthToken(0, "Session", Delegate);
+		}
+	}
+}
+
+void UMyGameInstanceSubsystem::LoginWithSteamCallback(int32 LocalUserNum, bool bWasSuccess, const FUniqueNetId& UserId,
+	const FString& Error)
+{
+	if(bWasSuccess)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("LoginWithSteamCallback: Login was successful. UserID: %s"), *UserId.ToString());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("LoginWithSteamCallback: Login was not successful. Error: %s"), *Error);
+	}
+}
+```
