@@ -11,6 +11,9 @@
     "friends": {
         "title": "Friends"
     },
+    "beacons": {
+        "title": "Beacons/Ping Sessions"
+    },
     "lan":
     {
         "title": "LAN"

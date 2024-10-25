@@ -1,0 +1,37 @@
+# Beacons with EOS Intergration Kit
+
+EIK provides a way to integrate beacons into your game. 
+
+
+## Beacon Configuration
+
+### DefaultEngine.ini Configuration
+
+Add the following configuration to your `DefaultEngine.ini` file to enable beacons in your game.
+
+```ini
+[/Script/Engine.GameEngine]
+!NetDriverDefinitions=ClearArray
++NetDriverDefinitions=(DefName="GameNetDriver",DriverClassName="OnlineSubsystemEIK.NetDriverEIK",DriverClassNameFallback="OnlineSubsystemUtils.IpNetDriver")
++NetDriverDefinitions=(DefName="BeaconNetDriver",DriverClassName="OnlineSubsystemEIK.NetDriverEIK",DriverClassNameFallback="OnlineSubsystemUtils.IpNetDriver")
+```
+
+## Ping
+
+So, EIK V4.5 introduces a node to ping sessions and Ip. This is useful for checking if a session is still active or how good the connection is.
+
+### Server Setup
+
+To host a beacon, you need to create a `Init Ping Beacon` node. This node will create a beacon that will listen for pings from clients. We usually suggest to do it in the `Begin Play` event of the game mode.
+
+![picture 0](../../images/277883dac4d163cfce48371f90739e33cc0db2baafa9db225bb5331ef1956632.png)  
+
+
+### Client Setup
+
+To ping a server, you either need to know the session info or the IP of the server. You can use the `Calculate Ping For Session` node to ping a session or the `Calculate Ping For Ip` node to ping an IP.
+
+![picture 1](../../images/b6a34c95b884abae1369a48daeebe824724bd67d082a0e0a88b8f97de6b29012.png)  
+
+
+That is all you need to know to use beacons with EIK. If you have any questions, feel free to ask in the [Discord](https://discord.gg/betidestudio) server.
